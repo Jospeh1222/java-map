@@ -78,12 +78,12 @@ public class Main extends javax.swing.JFrame {
         event = getEvent();
     }
     
-    private void addWaypoint(MyWaypoint waypoint) {
+    private void addWaypoint(MyWaypoint waypoint) {// sadece waypoint eklme 
         waypoints.add(waypoint);
         initWaypoint();
     }
     
-    private void addWaypointWithDelete(MyWaypoint waypoint){
+    private void addWaypointWithDelete(MyWaypoint waypoint){//waypoint eklerken haritada önce varsa silme
         for (MyWaypoint d : waypoints) {
             jXMapViewer.remove(d.getButton());
             }
@@ -128,7 +128,7 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    private void clearWaypoint() {
+    private void clearWaypoint() {//waypoint silme
         for (MyWaypoint d : waypoints) {
             jXMapViewer.remove(d.getButton());
         }
@@ -145,7 +145,8 @@ public class Main extends javax.swing.JFrame {
             }
         };
     }
-    
+
+    //haritada önceden aradığın yerleri tekrar yazarken öneri barı
     private void showSuggestions() {
     String text = txtSearch.getText().toLowerCase();
     searchSuggestions.removeAll();
@@ -272,7 +273,8 @@ public class Main extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
- 
+
+    //sadece haritada görünen waypointleri siler ama tutulan lokasyon bilgilerini ellemez
     private void cmdClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdClearActionPerformed
          clearWaypoint();
     }//GEN-LAST:event_cmdClearActionPerformed
@@ -284,8 +286,8 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jXMapViewerMouseReleased
 
-    private void cmdSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSearchActionPerformed
-                                                 
+    //search bar 
+    private void cmdSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSearchActionPerformed                                    
     String keyword = txtSearch.getText();
     if (keyword != null && !keyword.isEmpty()) {
         LocationSearch.SearchResult result = LocationSearch.search(keyword);
@@ -311,6 +313,7 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cmdSearchActionPerformed
 
+    //wapoint ekler sağ click ile
     private void AddWaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddWaypointActionPerformed
         GeoPosition geop = jXMapViewer.convertPointToGeoPosition(mousePosition);
         MyWaypoint wayPoint = new MyWaypoint("waypoint", MyWaypoint.PointType.VIA, event, new GeoPosition(geop.getLatitude(), geop.getLongitude()));
@@ -319,6 +322,7 @@ public class Main extends javax.swing.JFrame {
         System.out.println("x:"+geop.getLatitude()+" y:"+geop.getLongitude());
     }//GEN-LAST:event_AddWaypointActionPerformed
 
+    //location tutan listeyi yazdırır
     private void ListLocationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListLocationsActionPerformed
         int i=1;
         for (GeoPosition pos : allWaypointPositions) {
@@ -329,6 +333,7 @@ public class Main extends javax.swing.JFrame {
 }
     }//GEN-LAST:event_ListLocationsActionPerformed
 
+    //tuttuğu bütün lokasyonları ve waypointleri siler
     private void Clear_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Clear_historyActionPerformed
         allWaypointPositions.clear();
         clearWaypoint();
